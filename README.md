@@ -1,3 +1,41 @@
+
+# PTCGPB-Redesigned
+
+![image](https://github.com/user-attachments/assets/2f45194f-9745-4b6f-b9ec-8758d3358590)
+
+A fork of [PTCGPB](https://github.com/Arturo-1212/PTCGPB) with a completely redesigned GUI and the added option to choose your own background.
+
+## Overview
+
+**PTCGPB-Redesigned** reimagines the original Pokémon Trading Card Game Pocket Bot with major improvements in both aesthetics and customization. This version introduces a fresh, modern interface along with new features to enhance user experience.
+
+## Key Enhancements
+
+- **Completely Redesigned GUI:**  
+  Enjoy a modern, streamlined interface that improves usability and visual appeal.
+  
+- **Custom Background Option:**  
+  Personalize your experience by choosing your own background image directly within the application.
+
+## Features
+
+- **Modern Interface:**  
+  A fresh layout that makes navigating the bot more intuitive.
+  
+- **Background Customization:**  
+  Easily set and change the background image to suit your personal style.
+  
+- **Preserved Core Functionality:**  
+  All original features of PTCGPB are maintained, ensuring you still get the full functionality you rely on.
+
+## Installation
+
+1. **Clone the Repository:**
+   ```bash
+   git clone https://github.com/Dix01/PTCGPB-Redesigned.git
+
+
+
 # **License Change Notice**
 The original intention of this project was not for it to be used for paid services even those disguised as 'donations.'
 
@@ -28,3 +66,4 @@ _A guide will be posted here in the future. For now, join the Discord!_
 
 ## License
 This project is licensed under the Creative Commons Attribution-NonCommercial 4.0 International License (CC BY-NC 4.0).
+
