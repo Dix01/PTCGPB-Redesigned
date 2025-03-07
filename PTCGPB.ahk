@@ -81,137 +81,131 @@ IniRead, Charizard, Settings.ini, UserSettings, Charizard, 0
 IniRead, Mewtwo, Settings.ini, UserSettings, Mewtwo, 0
 IniRead, slowMotion, Settings.ini, UserSettings, slowMotion, 0
 
-; Create a stylish GUI with custom colors and modern look
-Gui, Color, 1E1E1E, 333333 ; Dark theme background
-Gui, Font, s10 cWhite, Segoe UI ; Modern font
+; Read saved background image (default is background.jpg if not set)
+IniRead, savedBackground, settings.ini, Settings, Background, background.jpg
+
+; -- Remove the GUI color command entirely --
+Gui, Color, 1E1E1E, 333333
+
+Gui, Font, s10 cWhite, Segoe UI
+
+; ========== Background Image Section ==========
+Gui, Add, Picture, x0 y0 w740 h430 vBackgroundImage, %savedBackground%
+GuiControl, MoveDraw, BackgroundImage, x0 y0 w740 h430
 
 ; ========== Friend ID Section ==========
-Gui, Add, GroupBox, x5 y0 w240 h40 cWhite, Friend ID
-if(FriendID = "ERROR" || FriendID = "")
-    Gui, Add, Edit, vFriendID w180 x35 y15 h20 -E0x200 Background2A2A2A cWhite
-else 
-    Gui, Add, Edit, vFriendID w180 x35 y15 h20 -E0x200 Background2A2A2A cWhite, %FriendID%
+Gui, Add, GroupBox, x5 y0 w240 h40 +BackgroundTrans +0x400 cWhite, Friend ID
+if (FriendID = "ERROR" || FriendID = "")
+    Gui, Add, Edit, vFriendID w180 x35 y15 h20 -E0x200 +BackgroundTrans cWhite
+else
+    Gui, Add, Edit, vFriendID w180 x35 y15 h20 -E0x200 +BackgroundTrans cWhite, %FriendID%
 
 ; ========== Instance Settings Section ==========
-Gui, Add, GroupBox, x5 y45 w240 h120 cWhite, Instance Settings
-Gui, Add, Text, x20 y65 cWhite, Instances:
-Gui, Add, Edit, vInstances w50 x100 y63 h20 -E0x200 Background2A2A2A cWhite Center, %Instances%
-
-Gui, Add, Text, x20 y90 cWhite, Start Delay:
-Gui, Add, Edit, vinstanceStartDelay w50 x100 y88 h20 -E0x200 Background2A2A2A cWhite Center, %instanceStartDelay%
-
-Gui, Add, Text, x20 y115 cWhite, Columns:
-Gui, Add, Edit, vColumns w50 x100 y113 h20 -E0x200 Background2A2A2A cWhite Center, %Columns%
-
-Gui, Add, Checkbox, % (runMain ? "Checked" : "") " vrunMain x20 y140 cWhite", Run Main
+Gui, Add, GroupBox, x5 y45 w240 h120 +BackgroundTrans +0x400 cWhite, Instance Settings
+Gui, Add, Text, x20 y65 cWhite +BackgroundTrans, Instances:
+Gui, Add, Edit, vInstances w50 x100 y63 h20 -E0x200 +BackgroundTrans cWhite Center, %Instances%
+Gui, Add, Text, x20 y90 cWhite +BackgroundTrans, Start Delay:
+Gui, Add, Edit, vinstanceStartDelay w50 x100 y88 h20 -E0x200 +BackgroundTrans cWhite Center, %instanceStartDelay%
+Gui, Add, Text, x20 y115 cWhite +BackgroundTrans, Columns:
+Gui, Add, Edit, vColumns w50 x100 y113 h20 -E0x200 +BackgroundTrans cWhite Center, %Columns%
+Gui, Add, Checkbox, % (runMain ? "Checked" : "") " vrunMain x20 y140 cWhite +BackgroundTrans", Run Main
 
 ; ========== God Pack Settings Section ==========
-Gui, Add, GroupBox, x5 y170 w240 h120 c39FF14, God Pack Settings ; Neon green
-Gui, Add, Text, x20 y190 c39FF14, Min. 2 Stars:
-Gui, Add, Edit, vminStars w50 x100 y188 h20 -E0x200 Background2A2A2A cWhite Center, %minStars%
-
-Gui, Add, Text, x20 y215 c39FF14, Method:
+Gui, Add, GroupBox, x5 y170 w240 h120 +BackgroundTrans +0x400 c39FF14, God Pack Settings
+Gui, Add, Text, x20 y190 c39FF14 +BackgroundTrans, Min. 2 Stars:
+Gui, Add, Edit, vminStars w50 x100 y188 h20 -E0x200 +BackgroundTrans cWhite Center, %minStars%
+Gui, Add, Text, x20 y215 c39FF14 +BackgroundTrans, Method:
 if (deleteMethod = "5 Pack")
     defaultDelete := 1
-else if (deleteMethod = "3 Pack") 
+else if (deleteMethod = "3 Pack")
     defaultDelete := 2
 else if (deleteMethod = "Inject")
     defaultDelete := 3
-
-Gui, Add, DropDownList, vdeleteMethod gdeleteSettings choose%defaultDelete% x80 y213 w100 Background2A2A2A cWhite, 5 Pack|3 Pack|Inject
-
-Gui, Add, Checkbox, % (packMethod ? "Checked" : "") " vpackMethod x20 y240 c39FF14", 1 Pack Method
-Gui, Add, Checkbox, % (nukeAccount ? "Checked" : "") " vnukeAccount x20 y265 c39FF14", Menu Delete Account
+Gui, Add, DropDownList, vdeleteMethod gdeleteSettings choose%defaultDelete% x80 y213 w100 +BackgroundTrans cWhite, 5 Pack|3 Pack|Inject
+Gui, Add, Checkbox, % (packMethod ? "Checked" : "") " vpackMethod x20 y240 c39FF14 +BackgroundTrans", 1 Pack Method
+Gui, Add, Checkbox, % (nukeAccount ? "Checked" : "") " vnukeAccount x20 y265 c39FF14 +BackgroundTrans", Menu Delete Account
 
 ; ========== Discord Settings Section ==========
-Gui, Add, GroupBox, x5 y295 w240 h120 cFF69B4, Discord Settings ; Hot pink
-
-if(StrLen(discordUserID) < 3)
-    discordUserID =
-if(StrLen(discordWebhookURL) < 3)
-    discordWebhookURL =
-
-Gui, Add, Text, x20 y315 cFF69B4, Discord ID:
-Gui, Add, Edit, vdiscordUserId w180 x20 y335 h20 -E0x200 Background2A2A2A cWhite, %discordUserId%
-
-Gui, Add, Text, x20 y360 cFF69B4, Webhook URL:
-Gui, Add, Edit, vdiscordWebhookURL w180 x20 y380 h20 -E0x200 Background2A2A2A cWhite, %discordWebhookURL%
+Gui, Add, GroupBox, x5 y295 w240 h120 +BackgroundTrans +0x400 cFF69B4, Discord Settings
+if (StrLen(discordUserID) < 3)
+    discordUserID := 
+if (StrLen(discordWebhookURL) < 3)
+    discordWebhookURL := 
+Gui, Add, Text, x20 y315 cFF69B4 +BackgroundTrans, Discord ID:
+Gui, Add, Edit, vdiscordUserId w180 x20 y335 h20 -E0x200 +BackgroundTrans cWhite, %discordUserId%
+Gui, Add, Text, x20 y360 cFF69B4 +BackgroundTrans, Webhook URL:
+Gui, Add, Edit, vdiscordWebhookURL w180 x20 y380 h20 -E0x200 +BackgroundTrans cWhite, %discordWebhookURL%
 
 ; ========== Heartbeat Settings Section ==========
-if(StrLen(heartBeatName) < 3)
-    heartBeatName =
-if(StrLen(heartBeatWebhookURL) < 3)
-    heartBeatWebhookURL =
-
-Gui, Add, GroupBox, x250 y0 w240 h120 c00FFFF, Heartbeat Settings ; Cyan
-Gui, Add, Checkbox, % (heartBeat ? "Checked" : "") " vheartBeat x265 y20 gdiscordSettings c00FFFF", Discord Heartbeat
-
+if (StrLen(heartBeatName) < 3)
+    heartBeatName := 
+if (StrLen(heartBeatWebhookURL) < 3)
+    heartBeatWebhookURL := 
+Gui, Add, GroupBox, x250 y0 w240 h120 +BackgroundTrans +0x400 c00FFFF, Heartbeat Settings
+Gui, Add, Checkbox, % (heartBeat ? "Checked" : "") " vheartBeat x265 y20 gdiscordSettings c00FFFF +BackgroundTrans", Discord Heartbeat
 if (heartBeat) {
-    Gui, Add, Text, vhbName x265 y45 c00FFFF, Name:
-    Gui, Add, Edit, vheartBeatName w150 x265 y65 h20 -E0x200 Background2A2A2A cWhite, %heartBeatName%
-    Gui, Add, Text, vhbURL x265 y90 c00FFFF, Webhook URL:
-    Gui, Add, Edit, vheartBeatWebhookURL w150 x265 y110 h20 -E0x200 Background2A2A2A cWhite, %heartBeatWebhookURL%
+    Gui, Add, Text, vhbName x265 y45 c00FFFF +BackgroundTrans, Name:
+    Gui, Add, Edit, vheartBeatName w150 x265 y65 h20 -E0x200 +BackgroundTrans cWhite, %heartBeatName%
+    Gui, Add, Text, vhbURL x265 y90 c00FFFF +BackgroundTrans, Webhook URL:
+    Gui, Add, Edit, vheartBeatWebhookURL w150 x265 y110 h20 -E0x200 +BackgroundTrans cWhite, %heartBeatWebhookURL%
 } else {
-    Gui, Add, Text, vhbName x265 y45 Hidden c00FFFF, Name:
-    Gui, Add, Edit, vheartBeatName w150 x265 y65 h20 Hidden -E0x200 Background2A2A2A cWhite, %heartBeatName%
-    Gui, Add, Text, vhbURL x265 y90 Hidden c00FFFF, Webhook URL:
-    Gui, Add, Edit, vheartBeatWebhookURL w150 x265 y110 h20 Hidden -E0x200 Background2A2A2A cWhite, %heartBeatWebhookURL%
+    Gui, Add, Text, vhbName x265 y45 Hidden c00FFFF +BackgroundTrans, Name:
+    Gui, Add, Edit, vheartBeatName w150 x265 y65 h20 Hidden -E0x200 +BackgroundTrans cWhite, %heartBeatName%
+    Gui, Add, Text, vhbURL x265 y90 Hidden c00FFFF +BackgroundTrans, Webhook URL:
+    Gui, Add, Edit, vheartBeatWebhookURL w150 x265 y110 h20 Hidden -E0x200 +BackgroundTrans cWhite, %heartBeatWebhookURL%
 }
 
 ; ========== Pack Selection Section ==========
-Gui, Add, GroupBox, x250 y125 w240 h120 cFFD700, Pack Selection ; Gold
-Gui, Add, Checkbox, % (Arceus ? "Checked" : "") " vArceus x265 y145 cFFD700", Arceus
-Gui, Add, Checkbox, % (Palkia ? "Checked" : "") " vPalkia x265 y165 cFFD700", Palkia
-Gui, Add, Checkbox, % (Dialga ? "Checked" : "") " vDialga x265 y185 cFFD700", Dialga
-Gui, Add, Checkbox, % (Pikachu ? "Checked" : "") " vPikachu x365 y145 cFFD700", Pikachu
-Gui, Add, Checkbox, % (Charizard ? "Checked" : "") " vCharizard x365 y165 cFFD700", Charizard
-Gui, Add, Checkbox, % (Mewtwo ? "Checked" : "") " vMewtwo x365 y185 cFFD700", Mewtwo
-Gui, Add, Checkbox, % (Mew ? "Checked" : "") " vMew x265 y205 cFFD700", Mew
+Gui, Add, GroupBox, x250 y125 w240 h120 +BackgroundTrans +0x400 cFFD700, Pack Selection
+Gui, Add, Checkbox, % (Arceus ? "Checked" : "") " vArceus x265 y145 cFFD700 +BackgroundTrans", Arceus
+Gui, Add, Checkbox, % (Palkia ? "Checked" : "") " vPalkia x265 y165 cFFD700 +BackgroundTrans", Palkia
+Gui, Add, Checkbox, % (Dialga ? "Checked" : "") " vDialga x265 y185 cFFD700 +BackgroundTrans", Dialga
+Gui, Add, Checkbox, % (Pikachu ? "Checked" : "") " vPikachu x365 y145 cFFD700 +BackgroundTrans", Pikachu
+Gui, Add, Checkbox, % (Charizard ? "Checked" : "") " vCharizard x365 y165 cFFD700 +BackgroundTrans", Charizard
+Gui, Add, Checkbox, % (Mewtwo ? "Checked" : "") " vMewtwo x365 y185 cFFD700 +BackgroundTrans", Mewtwo
+Gui, Add, Checkbox, % (Mew ? "Checked" : "") " vMew x265 y205 cFFD700 +BackgroundTrans", Mew
 
 ; ========== Card Detection Settings ==========
-Gui, Add, GroupBox, x250 y250 w240 h120 cFF4500, Card Detection ; Orange Red
-Gui, Add, Checkbox, % (FullArtCheck ? "Checked" : "") " vFullArtCheck x265 y270 cFF4500", Single Full Art
-Gui, Add, Checkbox, % (TrainerCheck ? "Checked" : "") " vTrainerCheck x265 y290 cFF4500", Single Trainer
-Gui, Add, Checkbox, % (RainbowCheck ? "Checked" : "") " vRainbowCheck x265 y310 cFF4500", Single Rainbow
-Gui, Add, Checkbox, % (PseudoGodPack ? "Checked" : "") " vPseudoGodPack x265 y330 cFF4500", Double 2 Star
-Gui, Add, Checkbox, % (CrownCheck ? "Checked" : "") " vCrownCheck x365 y270 cFF4500", Save Crowns
-Gui, Add, Checkbox, % (ImmersiveCheck ? "Checked" : "") " vImmersiveCheck x365 y290 cFF4500", Save Immersives
+Gui, Add, GroupBox, x250 y250 w240 h120 +BackgroundTrans +0x400 cFF4500, Card Detection
+Gui, Add, Checkbox, % (FullArtCheck ? "Checked" : "") " vFullArtCheck x265 y270 cFF4500 +BackgroundTrans", Single Full Art
+Gui, Add, Checkbox, % (TrainerCheck ? "Checked" : "") " vTrainerCheck x265 y290 cFF4500 +BackgroundTrans", Single Trainer
+Gui, Add, Checkbox, % (RainbowCheck ? "Checked" : "") " vRainbowCheck x265 y310 cFF4500 +BackgroundTrans", Single Rainbow
+Gui, Add, Checkbox, % (PseudoGodPack ? "Checked" : "") " vPseudoGodPack x265 y330 cFF4500 +BackgroundTrans", Double 2 Star
+Gui, Add, Checkbox, % (CrownCheck ? "Checked" : "") " vCrownCheck x365 y270 cFF4500 +BackgroundTrans", Save Crowns
+Gui, Add, Checkbox, % (ImmersiveCheck ? "Checked" : "") " vImmersiveCheck x365 y290 cFF4500 +BackgroundTrans", Save Immersives
 
 ; ========== Time Settings Section ==========
-Gui, Add, GroupBox, x495 y0 w240 h120 c9370DB, Time Settings ; Purple
-Gui, Add, Text, x510 y20 c9370DB, Delay:
-Gui, Add, Edit, vDelay w70 x580 y18 h20 -E0x200 Background2A2A2A cWhite Center, %Delay%
-
-Gui, Add, Text, x510 y50 c9370DB, Wait Time:
-Gui, Add, Edit, vwaitTime w70 x580 y48 h20 -E0x200 Background2A2A2A cWhite Center, %waitTime%
-
-Gui, Add, Text, x510 y80 c9370DB, Swipe Speed:
-Gui, Add, Edit, vswipeSpeed w70 x580 y78 h20 -E0x200 Background2A2A2A cWhite Center, %swipeSpeed%
+Gui, Add, GroupBox, x495 y0 w240 h120 +BackgroundTrans +0x400 c9370DB, Time Settings
+Gui, Add, Text, x510 y20 c9370DB +BackgroundTrans, Delay:
+Gui, Add, Edit, vDelay w70 x580 y18 h20 -E0x200 +BackgroundTrans cWhite Center, %Delay%
+Gui, Add, Text, x510 y50 c9370DB +BackgroundTrans, Wait Time:
+Gui, Add, Edit, vwaitTime w70 x580 y48 h20 -E0x200 +BackgroundTrans cWhite Center, %waitTime%
+Gui, Add, Text, x510 y80 c9370DB +BackgroundTrans, Swipe Speed:
+Gui, Add, Edit, vswipeSpeed w70 x580 y78 h20 -E0x200 +BackgroundTrans cWhite Center, %swipeSpeed%
 
 ; ========== System Settings Section ==========
-Gui, Add, GroupBox, x495 y125 w240 h120 c4169E1, System Settings ; Royal Blue
-Gui, Add, Text, x510 y145 c4169E1, Monitor:
-
+Gui, Add, GroupBox, x495 y125 w240 h120 +BackgroundTrans +0x400 c4169E1, System Settings
+Gui, Add, Text, x510 y145 c4169E1 +BackgroundTrans, Monitor:
 SysGet, MonitorCount, MonitorCount
 MonitorOptions := ""
-Loop, %MonitorCount% {
+Loop, %MonitorCount%
+{
     SysGet, MonitorName, MonitorName, %A_Index%
     SysGet, Monitor, Monitor, %A_Index%
-    MonitorOptions .= (A_Index > 1 ? "|" : "") "" A_Index ": (" MonitorRight - MonitorLeft "x" MonitorBottom - MonitorTop ")"
+    MonitorOptions .= (A_Index > 1 ? "|" : "") A_Index ": (" MonitorRight - MonitorLeft "x" MonitorBottom - MonitorTop ")"
 }
-
 SelectedMonitorIndex := RegExReplace(SelectedMonitorIndex, ":.*$")
-Gui, Add, DropDownList, x510 y165 w200 vSelectedMonitorIndex Choose%SelectedMonitorIndex% Background2A2A2A cWhite, %MonitorOptions%
-
-Gui, Add, Text, x510 y195 c4169E1, Folder Path:
-Gui, Add, Edit, vfolderPath w200 x510 y215 h20 -E0x200 Background2A2A2A cWhite, %folderPath%
+Gui, Add, DropDownList, x510 y165 w200 vSelectedMonitorIndex Choose%SelectedMonitorIndex% +BackgroundTrans cWhite, %MonitorOptions%
+Gui, Add, Text, x510 y195 c4169E1 +BackgroundTrans, Folder Path:
+Gui, Add, Edit, vfolderPath w200 x510 y215 h20 -E0x200 +BackgroundTrans cWhite, %folderPath%
 
 ; ========== Action Buttons ==========
-Gui, Add, Button, gOpenLink x495 y300 w115 h30 +Default, Buy Me a Coffee 
-Gui, Add, Button, gOpenDiscord x495 y340 w115 h30, Join Discord 
-Gui, Add, Button, gCheckForUpdates x620 y300 w115 h30, Check Updates 
-Gui, Add, Button, gArrangeWindows x620 y340 w115 h30, Arrange Windows 
-Gui, Add, Button, gStart x495 y380 w240 h40 +Default Background39FF14 cBlack, START BOT 
+Gui, Add, Button, gOpenLink x495 y300 w115 h30 +Default, Buy Me a Coffee
+Gui, Add, Button, gOpenDiscord x495 y340 w115 h30, Join Discord
+Gui, Add, Button, gCheckForUpdates x620 y300 w115 h30, Check Updates
+Gui, Add, Button, gArrangeWindows x620 y340 w115 h30, Arrange Windows
+Gui, Add, Button, gStart x495 y380 w115 h40 +Default Background39FF14 cBlack, START BOT
+Gui, Add, Button, gSetBackground x620 y380 w115 h40, Background
 
 if (defaultLanguage = "Scale125") {
     defaultLang := 1
@@ -221,8 +215,26 @@ if (defaultLanguage = "Scale125") {
     scaleParam := 287
 }
 
-Gui, Show, , %localVersion% PTCGPB Bot Setup [Non-Commercial 4.0 International License]
+Gui, Font, s7 cAAAAAA Italic, Segoe UI  ; Small italic font
+Gui, Add, Text, x279 y415 c444444 +BackgroundTrans, BOT by Arturo | GUI by Dix0x1 ; Shadow effect
+Gui, Add, Text, x280 y417 cAAAAAA +BackgroundTrans, BOT by Arturo | GUI by Dix0x1 ; Main text
+Gui, Font, Norm  ; Reset font settings
+
+Gui, Show, w740 h430, %localVersion% PTCGPB Bot Setup [Non-Commercial 4.0 International License]
 Return
+
+; ========== Background Button Handler ==========
+SetBackground:
+    FileSelectFile, SelectedImage, 3, , Select a background image, Image Files (*.jpg; *.jpeg; *.png)
+    if (SelectedImage != "")
+    {
+         GuiControl,, BackgroundImage, %SelectedImage%
+         IniWrite, %SelectedImage%, settings.ini, Settings, Background
+    }
+Return
+
+
+
 
 CheckForUpdates:
 	CheckForUpdate()
