@@ -13,8 +13,7 @@ A fork of [PTCGPB](https://github.com/Arturo-1212/PTCGPB) with a completely rede
 This update introduces an Auto Shutdown Runtime capability:
 
 ## Runtime Limit Input: Users can now specify a runtime limit (in minutes) via the GUI.
-## Automatic Shutdown: Once the specified duration elapses, the bot will automatically shut down—preventing it from running indefinitely and 
-  optimizing system resource usage.
+## Automatic Shutdown: Once the specified duration elapses, the bot will automatically shut down—preventing it from running indefinitely.
 
 
 ## Key Enhancements
