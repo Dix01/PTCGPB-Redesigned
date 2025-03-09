@@ -16,7 +16,15 @@ Custom Background Option:
 Personalize your experience by choosing your own background image directly within the application.
 
 Latest Update: Auto Shutdown Runtime Feature
-This update introduces a new auto shutdown runtime capability. Users can now set a runtime limit (in minutes) via the GUI. Once the specified time elapses, the bot will automatically shut down—ensuring it doesn’t run indefinitely and helping to better manage system resources.
+We are excited to announce a new update that introduces an Auto Shutdown Runtime feature:
+
+Runtime Limit Input:
+Users can now specify a runtime limit (in minutes) through the GUI.
+
+Automatic Shutdown:
+Once the set duration elapses, the bot will automatically shut down to prevent indefinite operation and optimize system resource usage.
+
+This enhancement gives you greater control over the bot’s operation, ensuring it runs only as long as you need it to.
 
 Features
 Modern Interface:
@@ -25,47 +33,39 @@ A fresh layout that makes navigating the bot more intuitive.
 Background Customization:
 Easily set and change the background image to suit your personal style.
 
-Auto Shutdown Option:
-Configure a runtime duration so the bot will stop automatically after the specified time.
-
 Preserved Core Functionality:
 All original features of PTCGPB are maintained, ensuring you still get the full functionality you rely on.
 
-
+Installation
 Clone the Repository:
-
+bash
+Copy code
 git clone https://github.com/Dix01/PTCGPB-Redesigned.git
-
-
-
-# **License Change Notice**
+License Change Notice
 The original intention of this project was not for it to be used for paid services even those disguised as 'donations.'
 
 In this release, we have updated the project's license. The previous GPL license has been replaced with the Creative Commons Attribution-NonCommercial 4.0 International License (CC BY-NC 4.0).
 
 What this means:
 
-The project is now licensed under CC BY-NC 4.0, which allows you to use, modify, and share the software only for **non-commercial** purposes.
-**Commercial use, including using the software to provide paid services or selling it (even if donations are involved), is not allowed under this license.**
+The project is now licensed under CC BY-NC 4.0, which allows you to use, modify, and share the software only for non-commercial purposes.
+Commercial use, including using the software to provide paid services or selling it (even if donations are involved), is not allowed under this license.
 The new license applies to this and all future releases; unfortunately, previous versions remain under the GPL.
+The bot will always be free and I will update it as long as this method is viable. I've spent many hours creating the PTCGPB, and if it’s helped you complete your collection, consider buying me a coffee to keep me going and adding new features!
+Buy Me a Coffee
 
-------------------------------------------
+Thanks for your support, and let’s keep those god packs coming! 😄
 
-*The bot will always be free and I will update it as long as this method is viable. I've spent many hours creating the PTCGPB, and if it’s helped you complete your collection, consider buying me a coffee to keep me going and adding new features!*
-https://buymeacoffee.com/aarturoo
+Arturo's Pokemon Trading Card Game Pocket Bot
+Special thanks to all contributors! Thanks to everyone else who has helped test or contributed suggestions to make the bot better!
 
-*Thanks for your support, and let’s keep those god packs coming!* 😄
+What does this do?
 
-# **__Arturo's Pokemon Trading Card Game Pocket Bot__**
-*Special thanks to all [contributors](https://github.com/Arturo-1212/PTCGPB/graphs/contributors)! Thanks to everyone else who has helped test or has contributed their suggestions to make the bot better!*
+This rerolls accounts from creation to opening the first 3 packs looking for god packs. After finishing the tutorial, it will add your main account and friends before opening a pack so that if it finds a god pack, it appears in your wonder pick.
+Join the Discord for an updated guide: Discord Guide
+Translations are being worked on. If an updated guide in your language isn’t available, please use the express install English guide: Express Install Guide
 
-**__What does this do?__**
-- This rerolls accounts from creation to opening the first 3 packs looking for god packs. After finishing the tutorial it will add your main account and friends before opening a pack so if it finds a god pack it appears in your wonder pick.
-
-Join the discord for an updated guide: https://discord.gg/C9Nyf7P4sT Translations are being worked on so if there isn't an updated guide in your language then use the express install English guide: https://discord.com/channels/1330305075393986703/1335717204989055087
-
-_A guide will be posted here in the future. For now, join the Discord!_
-
-## License
+License
 This project is licensed under the Creative Commons Attribution-NonCommercial 4.0 International License (CC BY-NC 4.0).
+
 
