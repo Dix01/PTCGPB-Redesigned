@@ -3,36 +3,38 @@
 
 ![image](https://github.com/user-attachments/assets/2f45194f-9745-4b6f-b9ec-8758d3358590)
 
-A fork of [PTCGPB](https://github.com/Arturo-1212/PTCGPB) with a completely redesigned GUI and the added option to choose your own background.
+A fork of PTCGPB with a completely redesigned GUI and the added option to choose your own background.
 
-## Overview
+Overview
+PTCGPB-Redesigned reimagines the original Pokémon Trading Card Game Pocket Bot with major improvements in both aesthetics and customization. This version introduces a fresh, modern interface along with new features to enhance user experience.
 
-**PTCGPB-Redesigned** reimagines the original Pokémon Trading Card Game Pocket Bot with major improvements in both aesthetics and customization. This version introduces a fresh, modern interface along with new features to enhance user experience.
+Key Enhancements
+Completely Redesigned GUI:
+Enjoy a modern, streamlined interface that improves usability and visual appeal.
 
-## Key Enhancements
+Custom Background Option:
+Personalize your experience by choosing your own background image directly within the application.
 
-- **Completely Redesigned GUI:**  
-  Enjoy a modern, streamlined interface that improves usability and visual appeal.
-  
-- **Custom Background Option:**  
-  Personalize your experience by choosing your own background image directly within the application.
+Latest Update: Auto Shutdown Runtime Feature
+This update introduces a new auto shutdown runtime capability. Users can now set a runtime limit (in minutes) via the GUI. Once the specified time elapses, the bot will automatically shut down—ensuring it doesn’t run indefinitely and helping to better manage system resources.
 
-## Features
+Features
+Modern Interface:
+A fresh layout that makes navigating the bot more intuitive.
 
-- **Modern Interface:**  
-  A fresh layout that makes navigating the bot more intuitive.
-  
-- **Background Customization:**  
-  Easily set and change the background image to suit your personal style.
-  
-- **Preserved Core Functionality:**  
-  All original features of PTCGPB are maintained, ensuring you still get the full functionality you rely on.
+Background Customization:
+Easily set and change the background image to suit your personal style.
 
-## Installation
+Auto Shutdown Option:
+Configure a runtime duration so the bot will stop automatically after the specified time.
 
-1. **Clone the Repository:**
-   ```bash
-   git clone https://github.com/Dix01/PTCGPB-Redesigned.git
+Preserved Core Functionality:
+All original features of PTCGPB are maintained, ensuring you still get the full functionality you rely on.
+
+
+Clone the Repository:
+
+git clone https://github.com/Dix01/PTCGPB-Redesigned.git
 
 
 
