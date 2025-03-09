@@ -80,6 +80,8 @@ IniRead, Pikachu, Settings.ini, UserSettings, Pikachu, 0
 IniRead, Charizard, Settings.ini, UserSettings, Charizard, 0
 IniRead, Mewtwo, Settings.ini, UserSettings, Mewtwo, 0
 IniRead, slowMotion, Settings.ini, UserSettings, slowMotion, 0
+IniRead, runTime, Settings.ini, UserSettings, runTime, 0
+IniRead, enableTimer, Settings.ini, UserSettings, enableTimer, 0
 
 ; Read saved background image (default is background.jpg if not set)
 IniRead, savedBackground, settings.ini, Settings, Background, background.jpg
@@ -183,6 +185,7 @@ Gui, Add, Edit, vwaitTime w70 x580 y48 h20 -E0x200 +BackgroundTrans cWhite Cente
 Gui, Add, Text, x510 y80 c9370DB +BackgroundTrans, Swipe Speed:
 Gui, Add, Edit, vswipeSpeed w70 x580 y78 h20 -E0x200 +BackgroundTrans cWhite Center, %swipeSpeed%
 
+
 ; ========== System Settings Section ==========
 Gui, Add, GroupBox, x495 y125 w240 h120 +BackgroundTrans +0x400 c4169E1, System Settings
 Gui, Add, Text, x510 y145 c4169E1 +BackgroundTrans, Monitor:
@@ -198,6 +201,10 @@ SelectedMonitorIndex := RegExReplace(SelectedMonitorIndex, ":.*$")
 Gui, Add, DropDownList, x510 y165 w200 vSelectedMonitorIndex Choose%SelectedMonitorIndex% +BackgroundTrans cWhite, %MonitorOptions%
 Gui, Add, Text, x510 y195 c4169E1 +BackgroundTrans, Folder Path:
 Gui, Add, Edit, vfolderPath w200 x510 y215 h20 -E0x200 +BackgroundTrans cWhite, %folderPath%
+Gui, Font, Bold, s10, Verdana
+Gui, Add, Text, x510 y250 w120 cFFFFFF +BackgroundTrans, RunTime (mins):
+Gui, Add, Edit, vrunTime w50 x640 y248 h20 -E0x200 +BackgroundTrans cFFFFFF Center, %runTime%
+Gui, Add, Checkbox, % (enableTimer ? "Checked" : "") " venableTimer x510 y275 c4169E1 +BackgroundTrans", Enable Auto-Close
 
 ; ========== Action Buttons ==========
 Gui, Add, Button, gOpenLink x495 y300 w115 h30 +Default, Buy Me a Coffee
@@ -337,6 +344,8 @@ Start:
 	IniWrite, %Charizard%, Settings.ini, UserSettings, Charizard
 	IniWrite, %Mewtwo%, Settings.ini, UserSettings, Mewtwo
 	IniWrite, %slowMotion%, Settings.ini, UserSettings, slowMotion
+	IniWrite, %runTime%, Settings.ini, UserSettings, runTime
+	IniWrite, %enableTimer%, Settings.ini, UserSettings, enableTimer
 
 	; Run main before instances to account for instance start delay
 	if (runMain) {
@@ -375,9 +384,29 @@ Start:
 	SelectedMonitorIndex := RegExReplace(SelectedMonitorIndex, ":.*$")
 	SysGet, Monitor, Monitor, %SelectedMonitorIndex%
 	rerollTime := A_TickCount
+	startTime := A_TickCount  ; Record start time when loop begins
+
 	Loop {
 		Sleep, 30000
-		; Sum all variable values and write to total.json
+		
+		; === NEW TIMER CHECK ===
+		if (enableTimer && runTime > 0) {
+			elapsedMinutes := (A_TickCount - startTime) / 60000
+			if (elapsedMinutes >= runTime) {
+				MsgBox, 64, Time Expired, Bot has run for %runTime% minutes. Shutting down...
+				
+				; ======== NEW SHUTDOWN CODE ========
+				; Close all script instances
+				KillAllAHK()
+				
+				; Close MuMu emulator
+				KillMumu()
+				
+				; Close main script
+				ExitApp
+				; ===================================
+			}
+		}
 		total := SumVariablesInJsonFile()
 		totalSeconds := Round((A_TickCount - rerollTime) / 1000) ; Total time in seconds
 		mminutes := Floor(totalSeconds / 60)
@@ -577,6 +606,38 @@ InitializeJsonFile() {
 		jsonFileName := fileName
 		return
 	}
+}
+
+KillAllAHK() {
+    ; Close all AHK scripts except current one
+    DetectHiddenWindows, On
+    WinGet, ahkList, List, ahk_class AutoHotkey
+    Loop % ahkList {
+        hwnd := ahkList%A_Index%
+        if (hwnd != A_ScriptHwnd) {
+            PostMessage, 0x111, 65307,,, ahk_id %hwnd% ; Send WM_CLOSE
+        }
+    }
+    Process, Close, AutoHotkey.exe ; Force terminate any remaining
+}
+
+KillMumu() {
+    ; Close MuMu windows gracefully first
+    WinClose, ahk_exe NemuPlayer.exe
+    WinClose, ahk_exe MuMuPlayer.exe
+    
+    ; Force kill all MuMu processes (old and new versions)
+    processes := ["NemuPlayer.exe", "NemuHeadless.exe", "NemuVm.exe"
+                , "MuMuPlayer.exe", "MuMuVMMaster.exe", "MuMuVM.exe"]
+    
+    for index, process in processes {
+        RunWait, %ComSpec% /c taskkill /IM %process% /F /T,, Hide
+    }
+    
+    ; Additional cleanup for specific instance files
+    if (FileExist(folderPath "\vmonitor\*")) {
+        RunWait, %ComSpec% /c del /Q "%folderPath%\vmonitor\*.*",, Hide
+    }
 }
 
 ; Function to append a time and variable pair to the JSON file
