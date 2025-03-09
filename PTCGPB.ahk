@@ -393,7 +393,7 @@ Start:
 		if (enableTimer && runTime > 0) {
 			elapsedMinutes := (A_TickCount - startTime) / 60000
 			if (elapsedMinutes >= runTime) {
-				MsgBox, 64, Time Expired, Bot has run for %runTime% minutes. Shutting down...
+			
 				
 				; ======== NEW SHUTDOWN CODE ========
 				; Close all script instances
